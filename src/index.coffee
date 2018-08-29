@@ -56,7 +56,12 @@ restoreMustacheLookup = ->
 # Convert a property name into a reference to the definition
 #
 getProperty = (propName, properties, opt) ->
-  tmp = propName.split '.'
+  if propName.indexOf("[") > 0
+    tmp = propName.replace("[\"", ".")
+    tmp = tmp.replace("\"]", "")
+  else
+    tmp = propName
+  tmp = tmp.split '.'
   res = properties
   while tmp.length and res
     key = tmp.shift()
